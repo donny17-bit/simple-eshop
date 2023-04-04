@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
 
 class userController extends Controller
 {
@@ -11,7 +12,11 @@ class userController extends Controller
      */
     public function index()
     {
-        //
+        $user = User::latest()->paginate(10);
+        return [
+            "status" => 1,
+            "data" => $user
+        ];
     }
 
     /**
@@ -27,7 +32,17 @@ class userController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required',
+            'password' => 'required',
+        ]);
+
+        $user = User::create($request->all());
+        return [
+            "status" => "Success post data",
+            "data" => $user
+        ];
     }
 
     /**
