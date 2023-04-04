@@ -14,7 +14,7 @@ class productController extends Controller
     {
         $product = Product::latest()->paginate(10);
         return [
-            "status" => 1,
+            "status" => "Success get product",
             "data" => $product
         ];
     }
@@ -32,7 +32,19 @@ class productController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'sku' => 'required',
+            'product_name' => 'required',
+            'price' => 'required',
+            'stock' => 'required',
+        ]);
+
+        $product = Product::create($request->all());
+
+        return [
+            "status" => "Success post data",
+            "data" => $product
+        ];
     }
 
     /**

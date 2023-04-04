@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\PurchaseOrder;
 
 class purchaseOrderController extends Controller
 {
@@ -11,7 +12,11 @@ class purchaseOrderController extends Controller
      */
     public function index()
     {
-        //
+        $purchase = PurchaseOrder::latest()->paginate(10);
+        return [
+            "status" => 'Success get purchase order',
+            "data" => $purchase
+        ];
     }
 
     /**
@@ -27,7 +32,18 @@ class purchaseOrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'id_product' => 'required',
+            'invoice_number' => 'required',
+            'quantity' => 'required',
+            'unit_price' => 'required',
+        ]);
+
+        $purchase = PurchaseOrder::create($request->all());
+        return [
+            "status" => "Success post data",
+            "data" => $purchase
+        ];
     }
 
     /**

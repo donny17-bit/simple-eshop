@@ -14,7 +14,7 @@ class userController extends Controller
     {
         $user = User::latest()->paginate(10);
         return [
-            "status" => 1,
+            "status" => 'Success get user',
             "data" => $user
         ];
     }
