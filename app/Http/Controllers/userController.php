@@ -40,7 +40,8 @@ class userController extends Controller
 
         $user = User::create($request->all());
         return [
-            "status" => "Success post data",
+            'code' => 200,
+            "status" => "Success create user",
             "data" => $user
         ];
     }

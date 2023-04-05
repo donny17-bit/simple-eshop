@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('id_product')->constrained('product', 'id');
             $table->foreignId('id_customer')->constrained('users', 'id');
-            $table->integer('invoice_number')->nullable(true)->unique();
+            $table->string('invoice_number')->nullable(true)->unique();
             $table->integer('quantity');
             $table->integer('unit_price');
             $table->boolean('status')->default(false);

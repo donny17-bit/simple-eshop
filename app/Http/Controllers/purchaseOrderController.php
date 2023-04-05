@@ -6,6 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use App\Models\PurchaseOrder;
 use App\Models\Product;
+use App\Models\User;
 use Illuminate\Support\Facades\Log;
 
 
@@ -18,6 +19,7 @@ class purchaseOrderController extends Controller
     {
         $purchase = PurchaseOrder::latest()->paginate(10);
         return [
+            "code" => 200,
             "status" => 'Success get purchase order',
             "data" => $purchase
         ];
@@ -36,25 +38,43 @@ class purchaseOrderController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'Id_Product' => 'required',
-            'Invoice_Number' => 'required',
-            'Quantity' => 'required',
-            'Unit_Price' => 'required',
-        ]);
-        $stock = Product::where('id', $request->Id_Product)->get('stock')[0]->stock;
-        // Log::alert($stock + $request->Quantity);
-        Product::where('id', $request->Id_Product)->update(['stock' => $stock + $request->Quantity]);
-        $purchase = PurchaseOrder::create([
-            'id_product' => $request->Id_Product,
-            'invoice_number' => $request->Invoice_Number,
-            'quantity' => $request->Quantity,
-            'unit_price' => $request->Unit_Price,
-        ]);
-        return [
-            "status" => "Success add stock product",
-            "data" => $purchase
-        ];
+        try {
+            $request->validate([
+                'Id_Product' => 'required',
+                'Invoice_Number' => 'required',
+                'Quantity' => 'required',
+                'Unit_Price' => 'required',
+            ]);
+
+            $product = Product::where('id', $request->Id_Product)->get();
+            if (count($product) == 0) {
+                return [
+                    "code" => 404,
+                    "status" => "Product doesn't exist",
+                    "data" => null
+                ];
+            }
+
+            $stock = Product::where('id', $request->Id_Product)->get('stock')[0]->stock;
+            Product::where('id', $request->Id_Product)->update(['stock' => $stock + $request->Quantity]);
+            $purchase = PurchaseOrder::create([
+                'id_product' => $request->Id_Product,
+                'invoice_number' => $request->Invoice_Number,
+                'quantity' => $request->Quantity,
+                'unit_price' => $request->Unit_Price,
+            ]);
+            return [
+                "code" => 200,
+                "status" => "Success add stock product",
+                "data" => $purchase
+            ];
+        } catch (\Throwable $th) {
+            return [
+                "code" => 500,
+                "status" => "Failed to make request",
+                "data" => null
+            ];
+        }
     }
 
     /**
@@ -62,11 +82,6 @@ class purchaseOrderController extends Controller
      */
     public function show(string $id)
     {
-        log::alert($id);
-        // return [
-        //     "status" => 'Success get product',
-        //     "data" => $product
-        // ];
     }
 
     /**
@@ -82,7 +97,46 @@ class purchaseOrderController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        try {
+            $user = User::where('id', $id)->get('role')[0]->role;
+
+            if ($user == 'user') {
+                return [
+                    "code" => 405,
+                    "status" => "Only admin allowed",
+                    "data" => null
+                ];
+            }
+
+            $request->validate([
+                'Id_Product' => 'required',
+                'Invoice_Number' => 'required',
+                'Quantity' => 'required',
+                'Unit_Price' => 'required',
+            ]);
+
+            $stock = Product::where('id', $request->Id_Product)->get('stock')[0]->stock;
+
+            Product::where('id', $request->Id_Product)->update(['stock' => $stock + $request->Quantity]);
+            $purchase = PurchaseOrder::create([
+                'id_product' => $request->Id_Product,
+                'invoice_number' => $request->Invoice_Number,
+                'quantity' => $request->Quantity,
+                'unit_price' => $request->Unit_Price,
+            ]);
+
+            return [
+                'code' => 200,
+                "status" => "Success add stock product",
+                "data" => $purchase
+            ];
+        } catch (\Throwable $th) {
+            return [
+                'code' => 500,
+                "status" => "Failed to make reques",
+                "data" => null
+            ];
+        }
     }
 
     /**

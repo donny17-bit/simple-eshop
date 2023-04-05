@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\User;
 
 class productController extends Controller
 {
@@ -14,6 +15,7 @@ class productController extends Controller
     {
         $product = Product::latest()->paginate(10);
         return [
+            "code" => 200,
             "status" => "Success get product",
             "data" => $product
         ];
@@ -32,19 +34,7 @@ class productController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'sku' => 'required',
-            'product_name' => 'required',
-            'price' => 'required',
-            'stock' => 'required',
-        ]);
-
-        $product = Product::create($request->all());
-
-        return [
-            "status" => "Success post data",
-            "data" => $product
-        ];
+        //
     }
 
     /**
@@ -71,7 +61,37 @@ class productController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        try {
+            $user = User::where('id', $id)->get('role')[0]->role;
+            if ($user == 'user') {
+                return [
+                    "code" => 405,
+                    "status" => "Only admin allowed",
+                    "data" => null
+                ];
+            }
+
+            $request->validate([
+                'sku' => 'required',
+                'product_name' => 'required',
+                'price' => 'required',
+                'stock' => 'required',
+            ]);
+
+            $product = Product::create($request->all());
+
+            return [
+                'code' => 200,
+                "status" => "Success add product",
+                "data" => $product
+            ];
+        } catch (\Throwable $th) {
+            return [
+                'code' => 500,
+                "status" => "Failed to make request",
+                "data" => null
+            ];
+        }
     }
 
     /**
