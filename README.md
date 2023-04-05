@@ -6,7 +6,11 @@
 
 - [How It Works](#how-it-works)
 
+- [Feature](#feature)
+
 - [Remote Database](#remote-database)
+
+- [End Point](#See-all-the-EndPoint)
 
 
 ## Link
@@ -16,34 +20,30 @@
 
 ## How It Works ?
 
-1. Download Postman Collection [[here](https://drive.google.com/file/d/1NtuQ54laE0NEfXGzNSnziLFf7SW9z1B9/view?usp=sharing)]
+1. Download Postman Collection [[here](https://github.com/donny17-bit/simple-eshop/blob/master/simple%20Eshop.postman_collection.json)]
 2. Open Your Postman App
 3. Import Postman Collection
-4. Create Environtments in Postman & Set :
-
-```bash
-VARIABLE : itjobs
-INITIAL VALUE : https://itjobsproject.herokuapp.com/
-CURRENT VALUE : https://itjobsproject.herokuapp.com/
-```
-
 5. Test Request
 
-## What To Do ?
+## Feature ?
 
-1. Register using your real information
-2. Open your registered email address
-3. Open email and follow the instruction to verify your FazzPay account
-4. Login and use the API
+1. Create user
+2. Admin add product
+3. User see all the product and stock
+4. User can create pending sale order
+5. Admin can approve pending sale order
+6. Admin can add the product stock
 
 ## Remote Database
 
 ```bash
-Hostname = ec2-44-202-197-206.compute-1.amazonaws.com
+Hostname = www.db4free.net
 Port = 3306
-Username = fw6thariq
-Password = Kdaio83!
+Database = simple_eshop
+Username = simple_eshop
+Password = simpleeshop
 ```
 
 note: don't drop or remove table and database
 
+## See all the EndPoint [[here](https://documenter.getpostman.com/view/20144091/2s93RXtBGD)]
