@@ -25,7 +25,7 @@
 3. Import Postman Collection
 5. Test Request
 
-## Feature ?
+## Feature
 
 1. Create user
 2. Admin add product
@@ -33,6 +33,24 @@
 4. User can create pending sale order
 5. Admin can approve pending sale order
 6. Admin can add the product stock
+
+## Demo Account 
+
+User
+```
+id : 1
+username : user
+email : user@mail.com
+password : user
+```
+
+Admin
+```
+id : 2
+username : admin
+email : admin@mail.com
+password : admin
+```
 
 ## Remote Database
 
