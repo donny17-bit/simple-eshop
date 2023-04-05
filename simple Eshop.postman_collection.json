@@ -1,0 +1,405 @@
+{
+	"info": {
+		"_postman_id": "2724ed91-fea5-46ad-b9d5-b03ec834ab44",
+		"name": "simple Eshop",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20144091"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Get All User",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "https://simple-eshop.up.railway.app/api/user",
+							"protocol": "https",
+							"host": [
+								"simple-eshop",
+								"up",
+								"railway",
+								"app"
+							],
+							"path": [
+								"api",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "admin",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "admin@mail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "admin",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://simple-eshop.up.railway.app/api/user",
+							"protocol": "https",
+							"host": [
+								"simple-eshop",
+								"up",
+								"railway",
+								"app"
+							],
+							"path": [
+								"api",
+								"user"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Product",
+			"item": [
+				{
+					"name": "Get All Product",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://simple-eshop.up.railway.app/api/product/",
+							"protocol": "https",
+							"host": [
+								"simple-eshop",
+								"up",
+								"railway",
+								"app"
+							],
+							"path": [
+								"api",
+								"product",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Product",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "sku",
+									"value": "1234abcde",
+									"type": "text"
+								},
+								{
+									"key": "product_name",
+									"value": "Laptop Asus ROG",
+									"type": "text"
+								},
+								{
+									"key": "price",
+									"value": "10000000",
+									"type": "text"
+								},
+								{
+									"key": "stock",
+									"value": "100",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://simple-eshop.up.railway.app/api/product/{{id_user_admin}}",
+							"protocol": "https",
+							"host": [
+								"simple-eshop",
+								"up",
+								"railway",
+								"app"
+							],
+							"path": [
+								"api",
+								"product",
+								"{{id_user_admin}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Purchase Order",
+			"item": [
+				{
+					"name": "Get All Purchase Order",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://simple-eshop.up.railway.app/api/purchase/",
+							"protocol": "https",
+							"host": [
+								"simple-eshop",
+								"up",
+								"railway",
+								"app"
+							],
+							"path": [
+								"api",
+								"purchase",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Product Stock",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "Id Product",
+									"value": "2",
+									"type": "text"
+								},
+								{
+									"key": "Invoice Number",
+									"value": "123opqrs",
+									"type": "text"
+								},
+								{
+									"key": "Quantity",
+									"value": "1000",
+									"type": "text"
+								},
+								{
+									"key": "Unit Price",
+									"value": "5000000",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://simple-eshop.up.railway.app/api/purchase/{{id_user_admin}}",
+							"protocol": "https",
+							"host": [
+								"simple-eshop",
+								"up",
+								"railway",
+								"app"
+							],
+							"path": [
+								"api",
+								"purchase",
+								"{{id_user_admin}}"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Sale Order",
+			"item": [
+				{
+					"name": "Add Pending Sale Order",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "Id Customer",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "Id Product",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "Quantity",
+									"value": "50",
+									"type": "text"
+								},
+								{
+									"key": "Unit Price",
+									"value": "10000000",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://simple-eshop.up.railway.app/api/sale",
+							"protocol": "https",
+							"host": [
+								"simple-eshop",
+								"up",
+								"railway",
+								"app"
+							],
+							"path": [
+								"api",
+								"sale"
+							],
+							"query": [
+								{
+									"key": "Id Customer ",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "Id Product",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "Quantity",
+									"value": "10",
+									"disabled": true
+								},
+								{
+									"key": "Unit Price",
+									"value": "1000000",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Approve Sale Order",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "Status",
+									"value": "Approve",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "https://simple-eshop.up.railway.app/api/sale/{{id_sale_order}}",
+							"protocol": "https",
+							"host": [
+								"simple-eshop",
+								"up",
+								"railway",
+								"app"
+							],
+							"path": [
+								"api",
+								"sale",
+								"{{id_sale_order}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Admin Add Sale Order",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "Id Customer",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "Id Product",
+									"value": "2",
+									"type": "text"
+								},
+								{
+									"key": "Invoice Number",
+									"value": "0987abcd",
+									"type": "text"
+								},
+								{
+									"key": "Quantity",
+									"value": "20",
+									"type": "text"
+								},
+								{
+									"key": "Unit Price",
+									"value": "5000000",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://simple-eshop.up.railway.app/api/sale",
+							"protocol": "https",
+							"host": [
+								"simple-eshop",
+								"up",
+								"railway",
+								"app"
+							],
+							"path": [
+								"api",
+								"sale"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
