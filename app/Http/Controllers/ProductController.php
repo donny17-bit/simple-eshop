@@ -53,7 +53,7 @@ class productController extends Controller
     public function show(Product $product)
     {
         return [
-            "status" => 1,
+            "status" => 'Success get product',
             "data" => $product
         ];
     }

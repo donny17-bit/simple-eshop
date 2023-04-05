@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\productController;
 use App\Http\Controllers\userController;
 use App\Http\Controllers\purchaseOrderController;
+use App\Http\Controllers\saleOrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,3 +24,4 @@ use App\Http\Controllers\purchaseOrderController;
 Route::resource('user', userController::class);
 Route::resource('product', productController::class);
 Route::resource('purchase', purchaseOrderController::class);
+Route::resource('sale', saleOrderController::class);

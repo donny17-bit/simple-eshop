@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Closure;
 use Illuminate\Http\Request;
 use App\Models\PurchaseOrder;
+use App\Models\Product;
+use Illuminate\Support\Facades\Log;
+
 
 class purchaseOrderController extends Controller
 {
@@ -33,15 +37,22 @@ class purchaseOrderController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'id_product' => 'required',
-            'invoice_number' => 'required',
-            'quantity' => 'required',
-            'unit_price' => 'required',
+            'Id_Product' => 'required',
+            'Invoice_Number' => 'required',
+            'Quantity' => 'required',
+            'Unit_Price' => 'required',
         ]);
-
-        $purchase = PurchaseOrder::create($request->all());
+        $stock = Product::where('id', $request->Id_Product)->get('stock')[0]->stock;
+        // Log::alert($stock + $request->Quantity);
+        Product::where('id', $request->Id_Product)->update(['stock' => $stock + $request->Quantity]);
+        $purchase = PurchaseOrder::create([
+            'id_product' => $request->Id_Product,
+            'invoice_number' => $request->Invoice_Number,
+            'quantity' => $request->Quantity,
+            'unit_price' => $request->Unit_Price,
+        ]);
         return [
-            "status" => "Success post data",
+            "status" => "Success add stock product",
             "data" => $purchase
         ];
     }
@@ -51,7 +62,11 @@ class purchaseOrderController extends Controller
      */
     public function show(string $id)
     {
-        //
+        log::alert($id);
+        // return [
+        //     "status" => 'Success get product',
+        //     "data" => $product
+        // ];
     }
 
     /**
